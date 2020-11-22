@@ -1,8 +1,8 @@
-# rpi-cpu-fan
-Raspberry Pi automatic CPU fan control
+# Raspberry Pi automatic CPU fan control
 
 ## Dynamic sleep intervals
 
-The farther away from the thresholds, the longer the script sleeps
+The farther away the CPU temperature is from the thresholds, the longer the
+script sleeps.
 
-![Sleep Intervals](cpu-sleep-intervals.png)
+![Sleep Intervals](sleep-intervals.png)
