@@ -1,9 +1,26 @@
 #!/bin/bash
 set -e
 
-FAN_PIN=17       # Which GPIO pin you're using to control the fan.
-ON_THRESHOLD=65  # (degrees Celsius) Fan runs full speed at this temperature.
-OFF_THRESHOLD=55 # (degress Celsius) Fan turns off at this temperature.
+# Which GPIO pin you're using to control the fan.
+if [ -n "$1" ]; then
+	FAN_PIN="$1"
+else
+	FAN_PIN=14
+fi
+
+# (degrees Celsius) Fan runs full speed at this temperature.
+if [ -n "$2" ]; then
+	ON_THRESHOLD="$2"
+else
+	ON_THRESHOLD=65
+fi
+
+# (degress Celsius) Fan turns off at this temperature.
+if [ -n "$3" ]; then
+	OFF_THRESHOLD="$3"
+else
+	OFF_THRESHOLD=$(( $ON_THRESHOLD - 10 ))
+fi
 
 if [ $ON_THRESHOLD -le $OFF_THRESHOLD ]; then
 	local tmp=$ON_THRESHOLD
