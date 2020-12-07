@@ -16,7 +16,7 @@ OFF=0
 FAN="/sys/class/gpio/gpio$FAN_PIN"
 
 # Ensure fan pin is enabled
-if [ ! -e "$FAN" ]; then
+if [ ! -d "$FAN" ]; then
 	echo "$FAN_PIN" > '/sys/class/gpio/export'
 fi
 
@@ -28,7 +28,7 @@ while true; do
 
 	if [ $temp -gt $ON_THRESHOLD ]; then
 
-		if [ "$FAN/value" -eq $OFF ]; then
+		if [ $(cat "$FAN/value") -eq $OFF ]; then
 			echo $ON > "$FAN/value"
 		fi
 
@@ -36,14 +36,14 @@ while true; do
 
 	elif [ $temp -lt $OFF_THRESHOLD ]; then
 
-		if [ "$FAN/value" -eq $ON ]; then
+		if [ $(cat "$FAN/value") -eq $ON ]; then
 			echo $OFF > "$FAN/value"
 		fi
 
 		interval=$(( ($ON_THRESHOLD - $temp) / 2 + 1 ))
 
 	else
-		if [ "$FAN/value" -eq $ON ]; then
+		if [ $(cat "$FAN/value") -eq $ON ]; then
 			interval=$(( $temp - $OFF_THRESHOLD + 1 ))
 		else
 			interval=$(( ($ON_THRESHOLD - $temp) / 2 + 1 ))
