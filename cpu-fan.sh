@@ -41,7 +41,7 @@ echo 'out' > "$FAN/direction"
 echo "$OFF" > "$FAN/value"
 
 while true; do
-	temp=$(vcgencmd measure_temp | awk -F "[=']" '{print($2)}')
+	temp=$(vcgencmd measure_temp | awk -F "[=']" '{print($2)}' | xargs printf '%.0f')
 
 	if [ $temp -gt $ON_THRESHOLD ]; then
 
