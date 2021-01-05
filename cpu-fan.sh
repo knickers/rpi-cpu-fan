@@ -20,9 +20,15 @@ done
 if [ -n "$1" ]; then
 	FAN_PIN="$(printf '%.0f' $1)"
 else
-	echo "Usage: $0 [GPIO Pin] <On Threshold> <Off Threshold>"
-	echo 'Flags: -v   Verbose (display to screen)'
-	echo '       -l   Log (write to log file)'
+	echo
+	echo "Usage: $0 [options] [GPIO Pin] <On Threshold> <Off Threshold>"
+	echo
+	echo 'On and off thresholds are in degrees Celsius'
+	echo
+	echo 'Options:'
+	echo '  -v   Verbose (display stats to screen)'
+	echo '  -l   Log (write output to log file)'
+	echo
 	exit 1
 fi
 
