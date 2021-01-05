@@ -54,18 +54,17 @@ if [ ! -d "$FAN" ]; then
 fi
 
 echo 'out' > "$FAN/direction"
-echo "$OFF" > "$FAN/value"
 
 while true; do
-	temp=$(vcgencmd measure_temp | awk -F "[=.]" '{print($2)}')
+	temp=$(vcgencmd measure_temp | awk -F "[=']" '{print($2)}' | xargs printf '%.0f')
 
-	if [ $temp -gt $ON_THRESHOLD ]; then
+	if [ $temp -ge $ON_THRESHOLD ]; then
 		if [ $(cat "$FAN/value") -eq $OFF ]; then
 			echo $ON > "$FAN/value"
 		fi
 
 		interval=$(( $temp - $OFF_THRESHOLD + 1 ))
-	elif [ $temp -lt $OFF_THRESHOLD ]; then
+	elif [ $temp -le $OFF_THRESHOLD ]; then
 		if [ $(cat "$FAN/value") -eq $ON ]; then
 			echo $OFF > "$FAN/value"
 		fi
