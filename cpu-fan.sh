@@ -18,8 +18,7 @@ done
 
 # Which GPIO pin being used to control the fan
 if [ -n "$1" ]; then
-
-	FAN_PIN="$1"
+	FAN_PIN="$(printf '%.0f' $1)"
 else
 	echo "Usage: $0 [GPIO Pin] <On Threshold> <Off Threshold>"
 	echo 'Flags: -v   Verbose (display to screen)'
@@ -28,13 +27,13 @@ else
 fi
 
 if [ -n "$2" ]; then
-	ON_THRESHOLD="$2"
+	ON_THRESHOLD="$(printf '%.0f' $2)"
 else
 	ON_THRESHOLD=65
 fi
 
 if [ -n "$3" ]; then
-	OFF_THRESHOLD="$3"
+	OFF_THRESHOLD="$(printf '%.0f' $3)"
 else
 	OFF_THRESHOLD=$(( $ON_THRESHOLD - 10 ))
 fi
