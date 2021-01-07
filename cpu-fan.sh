@@ -94,4 +94,3 @@ while true; do
 
 	sleep $interval
 done
-
