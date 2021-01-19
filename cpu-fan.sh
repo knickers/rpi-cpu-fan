@@ -21,9 +21,9 @@ if [ -n "$1" ]; then
 	FAN_PIN="$(printf '%.0f' $1)"
 else
 	echo
-	echo "Usage: $0 [options] [GPIO Pin] <On Threshold> <Off Threshold>"
+	echo "Usage: $0 [options] <GPIO Pin> [On Threshold] [Off Threshold]"
 	echo
-	echo 'On and off thresholds are in degrees Celsius'
+	echo 'On and off thresholds are optional. Must be integers in degrees Celsius.'
 	echo
 	echo 'Options:'
 	echo '  -v   Verbose (display stats to screen)'
